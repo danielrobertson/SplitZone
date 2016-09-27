@@ -3,4 +3,4 @@ A Slack bot that reduces communication friction in geographically distributed te
 
 This project is currently in development. 
 
-![Imgur](http://i.imgur.com/pTAFlGL.png)
+![Imgur](http://i.imgur.com/pTAFlGL.png =250x)
