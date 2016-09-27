@@ -17,7 +17,7 @@ controller.hears(timeRegex, ['ambient'], function(bot, message) {
 
     // find the time zones of users in this channel 
     var channel = message.channel;
-    bot.reply(message, "To clarify, that time translates too...");
+    bot.reply(message, "To clarify, that time translates to...");
     bot.api.channels.info({channel}, function(err, channelResponse) {
         channelResponse.channel.members.forEach(function(memberId) {
             bot.api.users.info({user: memberId}, function(err, userResponse) {
@@ -27,10 +27,20 @@ controller.hears(timeRegex, ['ambient'], function(bot, message) {
                 var date = parseTime(message.match[0]); 
                 var offset = (date.getTimezoneOffset() / 60) + (userResponse.user.tz_offset / 3600);
                 date.setHours(date.getHours() + offset);
+                
+                var hours = date.getHours(); 
 
-                var msg = String(date.getHours());
+                var meridiem = "am"; 
+                if(hours > 11) {
+                    meridiem = "pm"; 
+                }
+                if(hours > 12) {
+                    hours -= 12; 
+                }
+
+                var msg = String(hours);
                 if(date.getMinutes() !== 0) {
-                    msg +=":" + String(date.getMinutes())
+                    msg +=":" + String(date.getMinutes()) + meridiem; 
                 }
                 msg += " for " + username + "\n"; 
                 
